@@ -1,7 +1,7 @@
 import * as pactum from 'pactum';
 import { INestApplication } from '@nestjs/common';
 import { PrismaService } from '../../src/prisma/prisma.service';
-import { EditUserDto } from 'src/user/dto';
+import { EditUserDto } from 'src/patient/dto';
 import { createTestApp } from '../test-utils';
 import { TestSignupDto } from '../utils/test.dtos';
 

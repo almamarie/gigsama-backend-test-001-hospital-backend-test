@@ -5,8 +5,8 @@ model PatientDoctor {
 
   patientId      String
   doctorId       String
-  encryptedNotes String
-  checkList      String
+  encryptedNotes String?
+  checkList      String?
 
   plan Plan? @relation(fields: [planId], references: [planId])
 
