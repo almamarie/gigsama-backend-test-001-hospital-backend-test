@@ -1,8 +1,8 @@
-model Plan{
-     planId    String      @id @default(cuid())
+model Plan {
+  planId    String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
- patientDoctorId String
- patientDoctor PatientDoctor @relation(fields: [patientDoctorId], references: [id])
+  patientDoctorId String         @unique
+  PatientDoctor   PatientDoctor?
 }

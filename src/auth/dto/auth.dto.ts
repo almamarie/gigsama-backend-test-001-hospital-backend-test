@@ -4,17 +4,33 @@ import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 export class AuthDto {
   @ApiProperty({
     type: String,
-    description: "The name of the user",
+    description: 'The first name of the user'
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  firstName: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'The last name of the user'
+  })
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'The public key of the user'
+  })
+  @IsString()
+  @IsNotEmpty()
+  publicKey: string;
 
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty({
     type: String,
-    description: "The email of the user",
+    description: 'The email of the user'
   })
   email: string;
 
@@ -22,7 +38,7 @@ export class AuthDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
-    description: "The password of the user",
+    description: 'The password of the user'
   })
   password: string;
 }

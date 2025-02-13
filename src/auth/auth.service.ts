@@ -27,32 +27,22 @@ export class AuthService {
     private config: ConfigService,
     private emailService: EmailService
   ) {}
-  async signup(dto: AuthDto): Promise<{ access_token: string }> {
+  async signup(dto: AuthDto, role: Roles): Promise<{ access_token: string }> {
     try {
       this.logger.log('Creating new user...');
       const hash = await argon.hash(dto.password);
 
       const { password, ...userDto } = dto;
 
-      const { activationToken, accountActivationToken, accountActivationExpires } = await this.createAccountActivationToken();
-
       const user = await this.prisma.user.create({
         data: {
           ...userDto,
           passwordHash: hash,
-          role: Roles.USER,
-          accountActivationExpires,
-          accountActivationToken
+          role: role
         }
       });
 
-      await this.sendWelcomeEmail(
-        {
-          firstName: dto.firstName,
-          activationUrl: `${this.config.get('frontendActivateAccountUrl')}/${activationToken}`
-        },
-        dto.email
-      );
+      await this.sendWelcomeEmail(dto.firstName, dto.email);
 
       this.logger.log('Done creating new user.');
 
@@ -67,39 +57,6 @@ export class AuthService {
     }
   }
 
-  async activateAccount(token: string): Promise<void> {
-    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
-    this.logger.log(`Hashed token: ${hashedToken}\nToken: ${token}`);
-
-    const user = await this.prisma.user.findFirst({
-      where: {
-        accountActivationToken: hashedToken,
-        accountActivationExpires: {
-          gt: new Date()
-        }
-      }
-    });
-
-    if (!user) throw new BadRequestException('Invalid token');
-
-    if (!user.accountIsActivated) {
-      await this.prisma.user.update({
-        where: {
-          userId: user.userId
-        },
-        data: {
-          accountIsActivated: true,
-          accountActivationToken: undefined,
-          accountActivationExpires: undefined,
-          accountActivatedAt: new Date(Date.now())
-        }
-      });
-    }
-
-    this.logger.log('Account activated.');
-  }
-
   async signin(dto: SigninDto): Promise<{ access_token: string }> {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -112,10 +69,6 @@ export class AuthService {
 
     if (!(await argon.verify(user.passwordHash, dto.password))) {
       throw new ForbiddenException('Invalid username or password.');
-    }
-
-    if (!user.accountIsActivated) {
-      throw new ForbiddenException('Account not activated');
     }
 
     return this.signToken(user.userId, user.email);
@@ -218,46 +171,20 @@ export class AuthService {
     return { access_token: token };
   }
 
-  private async sendWelcomeEmail(emailData: welcomeEmailType, userEmail: string): Promise<void> {
+  private async sendWelcomeEmail(firstName: string, userEmail: string): Promise<void> {
     this.logger.log(`Sending new user email to ${userEmail}...`);
     try {
       await this.emailService.sendMail({
-        // from: "noreply@techopp.com",
         to: userEmail,
         template: './new-user',
-        subject: `Welcome ${emailData.firstName} to Tech Opp`,
-        context: emailData
+        subject: `Welcome ${firstName} to Tech Opp`,
+        context: { firstName, email: userEmail }
       });
       this.logger.log(`Email successfully sent to ${userEmail}.`);
     } catch (error) {
       this.logger.error(`Failed to send email to ${userEmail}: ${error}`);
       throw new ForbiddenException('Failed to send new user email.', error);
     }
-  }
-
-  private async createAccountActivationToken(): Promise<{
-    activationToken: string;
-    accountActivationToken: string;
-    accountActivationExpires: Date;
-  }> {
-    this.logger.log('Creating account activation token...');
-    const activationToken = crypto.randomBytes(32).toString('hex');
-
-    const accountActivationToken = crypto.createHash('sha256').update(activationToken).digest('hex');
-
-    this.logger.log({
-      activationToken,
-      'this.account activation': accountActivationToken
-    });
-
-    const accountActivationExpires = new Date(Date.now() + 60 * 60 * 1000); // days * mins * hrs * miliseconds
-
-    this.logger.log('Done!');
-    return {
-      activationToken,
-      accountActivationToken,
-      accountActivationExpires
-    };
   }
 
   private async createPasswordResetToken(userId: string): Promise<string> {

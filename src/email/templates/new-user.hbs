@@ -18,14 +18,12 @@
     <div class="container">
       <div class="header">
         Welcome,
-        {{name}}!
+        {{firstName}}!
       </div>
       <div class="content">
-        <p>Dear {{name}},</p>
+        <p>Dear {{firstName}},</p>
         <p>Thank you for signing up for our hospital management system. Your
           account has been successfully created.</p>
-        <p><strong>Email:</strong> {{email}}</p>
-        <p><strong>Role:</strong> {{role}}</p>
 
         {{#if isDoctor}}
           <p>As a doctor, you can start managing your patients right away.</p>
@@ -33,14 +31,11 @@
           <p>As a patient, please select a doctor to begin receiving care.</p>
         {{/if}}
 
-        <p>Click the button below to log in:</p>
-        <a href="{{loginLink}}" class="button">Login to Your Account</a>
-
         <p>If you did not sign up for this service, please ignore this email.</p>
       </div>
       <div class="footer">
         &copy;
-        {{year}}
+        2025
         Hospital System | All rights reserved.
       </div>
     </div>

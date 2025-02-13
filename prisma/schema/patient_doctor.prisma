@@ -1,10 +1,14 @@
-model PatientDoctor{
-  id    String      @id @default(cuid())
+model PatientDoctor {
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  patientId String
-  doctorId String
+  patientId      String
+  doctorId       String
   encryptedNotes String
-  checkList String
+  checkList      String
+
+  plan Plan? @relation(fields: [planId], references: [planId])
+
+  planId String? @unique
 }

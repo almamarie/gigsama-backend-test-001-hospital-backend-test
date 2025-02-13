@@ -10,16 +10,13 @@ export class UserService {
   async editUser(userId: string, dto: EditUserDto) {
     const user = await this.prismaService.user.update({
       where: { userId: userId },
-      data: { ...dto },
-      include: {
-        profiles: true
-      }
+      data: { ...dto }
     });
     return user;
   }
 
   async getUserById(userId: string): Promise<User> {
-    return await this.prismaService.user.findFirst({ where: { userId }, include: { profiles: true } });
+    return await this.prismaService.user.findFirst({ where: { userId } });
   }
 
   async deleteUserById(userId: string) {
