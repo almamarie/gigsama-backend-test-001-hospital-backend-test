@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome to Our Hospital System</title>
+    <style>
+      body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding:
+      20px; } .container { max-width: 600px; background: #ffffff; padding: 20px;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); } .header {
+      background-color: #007bff; color: #ffffff; padding: 10px; text-align:
+      center; font-size: 20px; border-radius: 10px 10px 0 0; } .content {
+      padding: 20px; font-size: 16px; color: #333333; } .button { display:
+      inline-block; padding: 10px 15px; background-color: #007bff; color: white;
+      text-decoration: none; border-radius: 5px; margin-top: 20px; } .footer {
+      margin-top: 20px; font-size: 12px; text-align: center; color: #666666; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        Welcome,
+        {{name}}!
+      </div>
+      <div class="content">
+        <p>Dear {{name}},</p>
+        <p>Thank you for signing up for our hospital management system. Your
+          account has been successfully created.</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Role:</strong> {{role}}</p>
+
+        {{#if isDoctor}}
+          <p>As a doctor, you can start managing your patients right away.</p>
+        {{else}}
+          <p>As a patient, please select a doctor to begin receiving care.</p>
+        {{/if}}
+
+        <p>Click the button below to log in:</p>
+        <a href="{{loginLink}}" class="button">Login to Your Account</a>
+
+        <p>If you did not sign up for this service, please ignore this email.</p>
+      </div>
+      <div class="footer">
+        &copy;
+        {{year}}
+        Hospital System | All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

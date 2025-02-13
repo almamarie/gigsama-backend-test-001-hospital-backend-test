@@ -1,0 +1,20 @@
+
+model User {
+  userId    String      @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firstName  String
+  lastName   String
+
+  email String @unique
+
+  passwordHash         String
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+  passwordChangedAt    DateTime  @default(now())
+
+  role String
+
+  @@map("users")
+}

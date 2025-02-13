@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reminder Notification</title>
+    <style>
+      body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding:
+      20px; } .container { max-width: 600px; background: #ffffff; padding: 20px;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); } .header {
+      background-color: #28a745; color: #ffffff; padding: 10px; text-align:
+      center; font-size: 20px; border-radius: 10px 10px 0 0; } .content {
+      padding: 20px; font-size: 16px; color: #333333; } .button { display:
+      inline-block; padding: 10px 15px; background-color: #28a745; color: white;
+      text-decoration: none; border-radius: 5px; margin-top: 20px; } .footer {
+      margin-top: 20px; font-size: 12px; text-align: center; color: #666666; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        Reminder:
+        {{reminderTitle}}
+      </div>
+      <div class="content">
+        <p>Dear {{name}},</p>
+        <p>This is a friendly reminder for your scheduled task:</p>
+        <p><strong>Reminder:</strong> {{reminderTitle}}</p>
+        <p><strong>Details:</strong> {{reminderDetails}}</p>
+        <p><strong>Scheduled Date & Time:</strong> {{scheduledTime}}</p>
+
+        <p>Please ensure you complete this task on time. If you have already
+          completed it, kindly mark it as done.</p>
+
+        <a href="{{checkInLink}}" class="button">Mark as Completed</a>
+
+        <p>If you have any questions, please contact your doctor.</p>
+      </div>
+      <div class="footer">
+        &copy;
+        {{year}}
+        Hospital System | All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
