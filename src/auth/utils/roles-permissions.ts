@@ -7,6 +7,7 @@ export const permissions = {
     // user
     'get:own:user',
     'patch:own:user',
-    'post:assign:doctor'
+    'post:assign:doctor',
+    'get:note:patient'
   ]
 };

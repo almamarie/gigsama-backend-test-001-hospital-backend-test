@@ -1,9 +1,13 @@
-model Reminders {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Reminder {
+  reminderId String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  actions Actions? @relation(fields: [actionId], references: [actionId])
+  task      String
+  frequency String
+  duration  Int
+  completed Boolean @default(false)
 
-  actionId String? @unique
+  noteId String
+  note   Note   @relation(fields: [noteId], references: [id])
 }

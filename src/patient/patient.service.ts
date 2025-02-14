@@ -28,4 +28,17 @@ export class PatientService {
     this.logger.log('done');
     return relation;
   }
+
+  async retrieveRelationActionsReminders(relationId: string, patientId: string) {
+    this.logger.log('Retrieveing actions and reminders');
+
+    const note = await this.prismaService.note.findFirst({ where: { patientDoctorId: relationId, patientId }, include: { reminders: true } });
+    if (!note) throw new NotFoundException('Not found');
+
+    return {
+      checklist: note.checklist,
+      plan: note.plan,
+      reminders: note.reminders
+    };
+  }
 }

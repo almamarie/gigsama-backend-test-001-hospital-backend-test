@@ -7,8 +7,5 @@ model PatientDoctor {
   doctorId       String
   encryptedNotes String?
   checkList      String?
-
-  actions Actions? @relation(fields: [actionId], references: [actionId])
-
-  actionId String? @unique
+  Note           Note[]
 }
