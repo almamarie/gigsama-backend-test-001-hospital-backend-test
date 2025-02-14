@@ -1,4 +1,4 @@
-import { Roles } from "types";
+import { Roles } from '../../../types';
 
 export const permissions = {
   [Roles.DOCTOR]: ['get:own:user', 'get:doctor:patients', 'post:patient:notes'],

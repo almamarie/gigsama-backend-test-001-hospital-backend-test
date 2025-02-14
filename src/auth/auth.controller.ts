@@ -21,9 +21,9 @@ import { User } from "@prisma/client";
 import { GetUser } from "./decorator";
 import { JwtGuard } from "./guard";
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
-import { AccessTokenEntity, MessageEntity } from "./entities";
-import { GeneralResponseType } from "./types";
-import { Roles } from 'types';
+
+import { GeneralResponseEntity } from '../utils/entity';
+import { GeneralResponseType, Roles } from '../../types';
 
 @Controller('auth')
 export class AuthController {
@@ -32,7 +32,7 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @Post('signup/:role')
   @ApiCreatedResponse({
-    type: AccessTokenEntity,
+    type: GeneralResponseEntity<{ accessToken: string }>,
     isArray: false
   })
   async signup(@Param('role') role: string, @Body() dto: AuthDto): Promise<GeneralResponseType> {
@@ -47,7 +47,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('signin')
   @ApiOkResponse({
-    type: AccessTokenEntity,
+    type: GeneralResponseEntity<{ accessToken: string }>,
     isArray: false
   })
   async signin(@Body() dto: SigninDto): Promise<GeneralResponseType> {
@@ -58,7 +58,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('forgot-password')
   @ApiOkResponse({
-    type: MessageEntity,
+    type: GeneralResponseEntity,
     isArray: false
   })
   async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<GeneralResponseType> {
@@ -73,7 +73,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Patch('reset-password/:token')
   @ApiOkResponse({
-    type: MessageEntity,
+    type: GeneralResponseEntity,
     isArray: false
   })
   async resetPassword(@Param('token') token: string, @Body() dto: ResetPasswordDto): Promise<GeneralResponseType> {
@@ -89,7 +89,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Patch('update-password')
   @ApiOkResponse({
-    type: AccessTokenEntity,
+    type: GeneralResponseEntity<{ accessToken: string }>,
     isArray: false
   })
   async updatePassword(@Body() dto: UpdatePasswordDto, @GetUser() user: User): Promise<GeneralResponseType> {

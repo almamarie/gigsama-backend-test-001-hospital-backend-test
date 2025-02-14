@@ -6,11 +6,11 @@ import { RolesGuard } from '../auth/guard/roles.guard';
 import { formatUser } from '../auth/utils/format-user';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { PatientService } from './patient.service';
-import { MessageEntity } from 'src/auth/entities';
 import { AssignDto } from './dto/assign.dto';
 import { GeneralResponseEntity } from 'src/utils/entity';
 import { PatientDoctorEntity } from 'src/entities';
 import { GetActionDto } from './dto/get-actions.dto';
+import { FormattedUserType } from 'types';
 
 @Controller('patients')
 @UseGuards(JwtGuard, RolesGuard)
@@ -18,7 +18,7 @@ export class PatientController {
   constructor(private patientService: PatientService) {}
   @Get('me')
   @ApiOkResponse({
-    type: MessageEntity,
+    type: GeneralResponseEntity<FormattedUserType>,
     isArray: false
   })
   @SetMetadata('permissions', ['get:own:user', 'pairer:user'])

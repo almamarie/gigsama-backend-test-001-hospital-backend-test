@@ -13,7 +13,6 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Roles } from '../../types';
-import { welcomeEmailType } from './types';
 import { EmailService } from '../../src/email/email.service';
 import * as crypto from 'crypto';
 import { User } from '@prisma/client';

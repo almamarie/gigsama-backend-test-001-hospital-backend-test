@@ -55,7 +55,7 @@ describe('app e2e', () => {
       });
     });
     describe('Sign up', () => {
-      const newDto = { ...dto, email: 'student@example.com' };
+      const newDto = { ...dto, email: 'doctor@gmail.com' };
       it('Should signup', () => {
         return pactum.spec().post('/auth/signup/user').withBody(newDto).expectStatus(201);
       }, 30000);

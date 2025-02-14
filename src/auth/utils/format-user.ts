@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
-import { FormattedUserType } from "../types";
+import { FormattedUserType } from 'types';
+
 
 export function formatUser(user: User): FormattedUserType {
   const formatted = {

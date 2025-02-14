@@ -1,16 +1,15 @@
-import { Body, Controller, Get, Patch, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { formatUser } from '../auth/utils/format-user';
 import { ApiOkResponse } from '@nestjs/swagger';
-import { MessageEntity } from 'src/auth/entities';
 import { DoctorService } from './doctor.service';
-import { FormattedUserType } from 'src/auth/types';
 import { GeneralResponseEntity } from 'src/utils/entity';
 import { SubmitNoteDto } from './dto';
 import { FormattedNoteResponse } from 'types/types';
+import { FormattedUserType } from 'types';
 
 @Controller('doctors')
 @UseGuards(JwtGuard, RolesGuard)
@@ -19,7 +18,7 @@ export class DoctorController {
 
   @Get('me')
   @ApiOkResponse({
-    type: MessageEntity,
+    type: GeneralResponseEntity<FormattedUserType>,
     isArray: false
   })
   @SetMetadata('permissions', ['get:own:user', 'pairer:user'])
@@ -42,7 +41,7 @@ export class DoctorController {
     return { status: true, message: 'Patients retrieved successfully.', data: users };
   }
 
-  @Patch('notes')
+  @Put('notes')
   @ApiOkResponse({
     type: GeneralResponseEntity<FormattedNoteResponse>,
     isArray: true

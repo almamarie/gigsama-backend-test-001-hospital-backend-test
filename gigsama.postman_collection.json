@@ -1,0 +1,944 @@
+{
+	"info": {
+		"_postman_id": "8b7e9ab0-d7a6-497f-82d8-988430234172",
+		"name": "gigsama",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17911004"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "create new doctor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const data = pm.response.json();",
+									"// const accessToken =  data.data.access_token;",
+									"// pm.environment.set(\"DOCTOR_ACCESS_TOKEN\", accessToken);",
+									"",
+									"",
+									"",
+									"pm.test(\"Response status is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response contains access token\", function () {",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData.data).to.have.property(\"access_token\");",
+									"    pm.expect(jsonData.data.access_token).to.be.a(\"string\").and.to.not.be.empty;",
+									"});",
+									"",
+									"// Optionally, store the access token in an environment variable for future requests",
+									"pm.environment.set(\"DOCTOR_ACCESS_TOKEN\", jsonData.data.access_token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Michael\",\n\t\"lastName\":\"Atanga\",\n\t\"email\":\"doctor@gmail.com\",\n\t \"publicKey\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4txZR/FMsKbI9ZuwGCk/\\nLhFJMfr589IiP0e7d5wk2ClK5C4xQ2W5G91SRPgW4tdvyjz63ILclzMQJy2TkocD\\nxokZLte21pDceozEk5rCd7RpiOHNAx4pUPiAFN2AgqARDC/vsGFZQqNO9z9SHBTq\\nRs41K9xAzpb9At3b3mJoIiUI7Cc8yunyRRfeyCK8sMAcX8f4dxe14o0v0+aC+hIU\\noz9E726kT0fMTBZ5OxneWOevS/xhbMEeXaUUQbnLAWi2QMaGAtOGKESb1EQsSkSX\\nC1vVnT4BUI6+ACAeKVvscfmNKDQYlO7GLK2yIXrNo7k1B2A1N4uH4iLxsxE7NqeS\\nsQIDAQAB\\n-----END PUBLIC KEY-----\",\n  \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/signup/doctor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"signup",
+								"doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create patient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response contains access token\", function () {",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData.data).to.have.property(\"access_token\");",
+									"    pm.expect(jsonData.data.access_token).to.be.a(\"string\").and.to.not.be.empty;",
+									"});",
+									"",
+									"",
+									"const data = pm.response.json();",
+									"const accessToken =  data.data.access_token;",
+									"pm.environment.set(\"PATIENT_ACCESS_TOKEN\", accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Richard\",\n\t\"lastName\":\"Atia\",\n\t\"email\":\"patient@gmail.com\",\n\t  \"publicKey\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsvHbIl+m2h3SY0UKdhj9\\nCPU5nLdTwtkfjQhvzP993oGF9OqXtIqwjEr7SdkReR/47HpPqRQgJJsb4fdydRCd\\nBhkyP2T4h7iDALddjoszaJZcta+XV1RZUhgiOxEHyuPhYO2WIF2XpDKEvxY8+vhC\\nRutQ31sR7Z5eL9PJwaQ3hNVhHH1UkWWhcHW+7do0v6UzP1IxMgWJ5HPlA389Hgwo\\n4pzpabuO6dPEwGufqDkN98jQWBxAazB3AI9lbwxMYDrXG04nT0PvjDsiO76Msjpa\\nJgC0eLJkFJsaZWw55kbBcX7mTQjNB5BtNUSF5XvxhVfQj6TiSqOd3LHGQmUZpA8i\\nowIDAQAB\\n-----END PUBLIC KEY-----\",\n  \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/signup/patient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"signup",
+								"patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get own patient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    // Test 1: Verify that the response status is 200 OK",
+									"pm.test(\"Response status is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Parse the JSON response once for reuse",
+									"var jsonData = pm.response.json();",
+									"",
+									"// Test 2: Verify that the response contains a non-empty access token",
+									"pm.test(\"Response contains access token\", function () {",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData.data).to.have.property(\"access_token\");",
+									"    pm.expect(jsonData.data.access_token).to.be.a(\"string\").and.to.not.be.empty;",
+									"});",
+									"",
+									"// Test 3: Verify that the access token starts with 'eyJ' (typical for JWT tokens)",
+									"pm.test(\"JWT token has a valid structure\", function () {",
+									"    pm.expect(jsonData.data.access_token.startsWith(\"eyJ\")).to.be.true;",
+									"});",
+									"",
+									"// Optional Test 4: Check that the response time is below 500ms",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.environment.set(\"DOCTOR_ACCESS_TOKEN\", jsonData.data.access_token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"doctor@gmail.com\",\n\t\"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test 1: Verify that the response status is 200 OK",
+									"pm.test(\"Response status is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Parse the JSON response once for reuse",
+									"var jsonData = pm.response.json();",
+									"",
+									"// Test 2: Verify that the response contains a non-empty access token",
+									"pm.test(\"Response contains access token\", function () {",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData.data).to.have.property(\"access_token\");",
+									"    pm.expect(jsonData.data.access_token).to.be.a(\"string\").and.to.not.be.empty;",
+									"});",
+									"",
+									"// Test 3: Verify that the access token starts with 'eyJ' (typical for JWT tokens)",
+									"pm.test(\"JWT token has a valid structure\", function () {",
+									"    pm.expect(jsonData.data.access_token.startsWith(\"eyJ\")).to.be.true;",
+									"});",
+									"",
+									"// Optional Test 4: Check that the response time is below 500ms",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"const accessToken =  jsonData.data.access_token;",
+									"pm.environment.set(\"PATIENT_ACCESS_TOKEN\", accessToken);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"patient@gmail.com\",\n\t\"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"alouismariea97@gmail.com\",\n    \"resetUrl\": \"http://localhost:8080\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\": \"new-password\",\n    \"confirmPassword\": \"new-password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/reset-password/f719d06531f39b6a1fdad42870620204d54b8e6630c68bc25093c4559dd8e7ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"reset-password",
+								"f719d06531f39b6a1fdad42870620204d54b8e6630c68bc25093c4559dd8e7ec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTUxaHl2bDIwMDAwMXJuamc0djE5Y2p6IiwiaXNzIjoiaHR0cHM6Ly9zZWxsei1iYWNrZW5kLmNvbSIsImF1ZCI6Imh0dHBzOi8vc2VsbHouY29tIiwiZXhwIjoxNzM1MjQ4MDkzLCJpYXQiOjE3MzQ5ODg4OTMsInJvbGUiOiJhbG91aXNtYXJpZWE5N0BnbWFpbC5jb20ifQ.PZLYfelRe4a9fOAFKQ7ElpKyw2VTsa_7CjApCrS9oog",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currentPassword\": \"new-password\",\n    \"newPassword\": \"password\",\n    \"confirmPassword\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/auth/update-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"update-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get own doctor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Doctor Details - Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Get Doctor Details - Content-Type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"pm.test(\"Get Doctor Details - Response body has correct structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"    pm.expect(jsonData.data).to.be.an('object');",
+									"",
+									"    // Check for specific properties within the 'data' object",
+									"    pm.expect(jsonData.data).to.have.property('userId');",
+									"    pm.expect(jsonData.data).to.have.property('firstName');",
+									"    pm.expect(jsonData.data).to.have.property('lastName');",
+									"    pm.expect(jsonData.data).to.have.property('email');",
+									"    // ... add checks for other expected properties ...",
+									"});",
+									"",
+									"pm.test(\"Get Doctor Details - Response body data is not empty\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(Object.keys(jsonData.data).length).to.be.greaterThan(0); // Check if the data object is not empty",
+									"});",
+									"",
+									"pm.test(\"Get Doctor Details - User ID is a string\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userId).to.be.a('string');",
+									"});",
+									"",
+									"const data = pm.response.json();",
+									"pm.environment.set(\"DOCTOR_ID\", data.data.userId);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{DOCTOR_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v0/doctors/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"doctors",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get own patient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Patient Details - Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Get Patient Details - Content-Type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"pm.test(\"Get Patient Details - Response body has correct structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"    pm.expect(jsonData.data).to.be.an('object');",
+									"",
+									"    // Check for specific properties within the 'data' object",
+									"    pm.expect(jsonData.data).to.have.property('userId');",
+									"    pm.expect(jsonData.data).to.have.property('firstName');",
+									"    pm.expect(jsonData.data).to.have.property('lastName');",
+									"    pm.expect(jsonData.data).to.have.property('email');",
+									"    // ... add checks for other expected properties ...",
+									"});",
+									"",
+									"pm.test(\"Get Patient Details - Response body data is not empty\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(Object.keys(jsonData.data).length).to.be.greaterThan(0); // Check if the data object is not empty",
+									"});",
+									"",
+									"pm.test(\"Get Patient Details - User ID is a string\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userId).to.be.a('string');",
+									"});",
+									"",
+									"",
+									"const data = pm.response.json();",
+									"pm.environment.set(\"PATIENT_ID\", data.data.userId);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{PATIENT_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v0/patients/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"patients",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "patient",
+			"item": [
+				{
+					"name": "assign doctor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Assign Doctor - Status code is 201\", function () {",
+									"    pm.response.to.have.status(201); // Or 201 Created, depending on your API",
+									"});",
+									"",
+									"pm.test(\"Assign Doctor - Content-Type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"pm.test(\"Assign Doctor - Response body has correct structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"    pm.expect(jsonData.data).to.be.an('object');",
+									"    pm.expect(jsonData.data).to.have.property('relation');",
+									"    pm.expect(jsonData.data.relation).to.be.an('object');",
+									"",
+									"    // Check for specific properties within the 'relation' object",
+									"    pm.expect(jsonData.data.relation).to.have.property('id');",
+									"    pm.expect(jsonData.data.relation).to.have.property('patientId');",
+									"    pm.expect(jsonData.data.relation).to.have.property('doctorId');",
+									"    // ... add checks for other expected properties in 'relation'",
+									"});",
+									"",
+									"pm.test(\"Assign Doctor - Relation ID is a string\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.relation.id).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Assign Doctor - Patient and Doctor IDs are correct\", function () {",
+									"  const jsonData = pm.response.json();",
+									"  const expectedPatientId = pm.environment.get(\"PATIENT_ID\"); // Assuming you set this earlier",
+									"  const expectedDoctorId = pm.environment.get(\"DOCTOR_ID\");  // Assuming you set this earlier",
+									"",
+									"  pm.expect(jsonData.data.relation.patientId).to.equal(expectedPatientId);",
+									"  pm.expect(jsonData.data.relation.doctorId).to.equal(expectedDoctorId);",
+									"});",
+									"",
+									"const data = pm.response.json();",
+									"pm.environment.set(\"RELATION_ID\", data.data.relation.id);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{PATIENT_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"doctorId\": \"{{DOCTOR_ID}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/patients/assign-doctor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"patients",
+								"assign-doctor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctors",
+			"item": [
+				{
+					"name": "get assigned patients",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Assigned Patients - Status and Content-Type\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"pm.test(\"Get Assigned Patients - Response body is an array with correct structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Get Assigned Patients - Unauthorized (401) handling\", function () {",
+									"    pm.expect(pm.response.status).to.not.equal(200);",
+									"    // Add checks for the error response body if your API returns specific error details",
+									"});",
+									"",
+									"pm.test(\"Get Assigned Patients - Check for specific properties (example)\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.length > 0) {",
+									"        jsonData.forEach(patient => {",
+									"            pm.expect(patient).to.have.property('lastAppointment'); // Example",
+									"            // pm.expect(patient.lastAppointment).to.be.a('string'); // Check type if needed",
+									"        });",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{DOCTOR_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v0/doctors/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"doctors",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "submit notes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Submit Notes - Status code is 201\", function () {",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"",
+									"pm.test(\"Submit Notes - Response body has correct structure and message\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('object');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData.message).to.equal(\"Note submitted.\"); ",
+									"});",
+									"",
+									"pm.test(\"Submit Notes - Response has plan and checklist arrays\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"    const data = jsonData.data;",
+									"",
+									"    pm.expect(data).to.have.property('plan');",
+									"    pm.expect(data.plan).to.be.an('array');",
+									"",
+									"    pm.expect(data).to.have.property('checklist');",
+									"    pm.expect(data.checklist).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Submit Notes - Plan array has correct structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const plan = jsonData.data.plan;",
+									"",
+									"    if (plan.length > 0) {",
+									"        plan.forEach(item => {",
+									"            pm.expect(item).to.be.an('object');",
+									"            pm.expect(item).to.have.all.keys('task', 'frequency', 'duration', 'reminderMessage'); // Check for all expected keys",
+									"            pm.expect(item.task).to.be.a('string');",
+									"            pm.expect(item.frequency).to.be.a('string');",
+									"            pm.expect(item.duration).to.be.a('number');",
+									"            pm.expect(item.reminderMessage).to.be.a('string');",
+									"        });",
+									"    }",
+									"});",
+									"",
+									"pm.test(\"Submit Notes - Checklist array contains strings\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const checklist = jsonData.data.checklist;",
+									"",
+									"    if (checklist.length > 0) {",
+									"        checklist.forEach(item => {",
+									"            pm.expect(item).to.be.a('string');",
+									"        });",
+									"    }",
+									"});",
+									"",
+									"",
+									"pm.test(\"Submit Notes - Success message\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData.message).to.equal(\"Note submitted.\"); // Adapt to your API's message",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{DOCTOR_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"note\": \"Patient: John Doe. Diagnosis: Hypertension and mild dehydration. Prescribed Amlodipine (5mg) – take once daily for 30 days. Increase water intake – at least 8 glasses per day. Monitor blood pressure daily and report any unusual spikes. Follow a low-sodium diet – avoid salty foods. Engage in light exercise (e.g., 30-minute walks) 5 times a week. Follow-up appointment in 2 weeks.\",\n  \"relationId\": \"{{RELATION_ID}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/doctors/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"doctors",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get actions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Actions/Reminders - Status and Content-Type\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"pm.test(\"Get Actions/Reminders - Response has relation with plan, checklist, and reminders\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"    const relation = jsonData.data.relation;",
+									"",
+									"    pm.expect(relation).to.have.property('plan');",
+									"    pm.expect(relation.plan).to.be.an('array');",
+									"",
+									"    pm.expect(relation).to.have.property('checklist');",
+									"    pm.expect(relation.checklist).to.be.an('array');",
+									"",
+									"    pm.expect(relation).to.have.property('reminders');",
+									"    pm.expect(relation.reminders).to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Get Actions/Reminders - Plan and Checklist structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const relation = jsonData.data.relation;",
+									"",
+									"    relation.plan.forEach(item => {",
+									"        pm.expect(item).to.be.an('object');",
+									"        pm.expect(item).to.have.all.keys('task', 'frequency', 'duration', 'reminderMessage');",
+									"        pm.expect(item.task).to.be.a('string');",
+									"        pm.expect(item.frequency).to.be.a('string');",
+									"        pm.expect(item.duration).to.be.a('number');",
+									"        pm.expect(item.reminderMessage).to.be.a('string');",
+									"    });",
+									"",
+									"    relation.checklist.forEach(item => {",
+									"        pm.expect(item).to.be.a('string');",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Get Actions/Reminders - Reminders structure\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const relation = jsonData.data.relation;",
+									"",
+									"    relation.reminders.forEach(reminder => {",
+									"        pm.expect(reminder).to.be.an('object');",
+									"        pm.expect(reminder).to.have.all.keys('reminderId', 'createdAt', 'updatedAt', 'message', 'frequency', 'duration', 'isCompleted', 'reminderIsSent', 'noteId', 'patientId');",
+									"        pm.expect(reminder.reminderId).to.be.a('string');",
+									"        pm.expect(reminder.message).to.be.a('string');",
+									"        pm.expect(reminder.frequency).to.be.a('string');",
+									"        pm.expect(reminder.duration).to.be.a('number');",
+									"        pm.expect(reminder.isCompleted).to.be.a('boolean');",
+									"        pm.expect(reminder.reminderIsSent).to.be.a('boolean');",
+									"        pm.expect(reminder.noteId).to.be.a('string');",
+									"        pm.expect(reminder.patientId).to.be.a('string');",
+									"",
+									"        // You can add more specific checks for date formats if needed:",
+									"        // pm.expect(reminder.createdAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Get Actions/Reminders - Success message\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData.message).to.equal(\"Actions and reminders retrieved successfully.\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{PATIENT_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"relationId\": \"{{RELATION_ID}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v0/patients/actions-reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v0",
+								"patients",
+								"actions-reminders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

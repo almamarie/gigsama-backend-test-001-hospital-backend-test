@@ -30,8 +30,7 @@ describe('app e2e', () => {
     });
     describe('Send password reset link', () => {
       const dto: ForgotPasswordDto = {
-        email: 'mloumar82@gmail.com',
-        resetUrl: 'http://localhost:3000/auth/reset-password'
+        email: 'mloumar82@gmail.com'
       };
       it('should throw error when restUrl is not given', () => {
         return pactum

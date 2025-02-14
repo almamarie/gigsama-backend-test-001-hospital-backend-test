@@ -1,9 +1,8 @@
 import * as pactum from 'pactum';
 import { INestApplication } from '@nestjs/common';
 import { PrismaService } from '../../src/prisma/prisma.service';
-import { EditUserDto } from 'src/patient/dto';
 import { createTestApp } from '../test-utils';
-import { TestSigninDto, TestSignupDto } from '../utils/test.dtos';
+import { TestSignupDto } from '../utils/test.dtos';
 import { SigninDto } from 'src/auth/dto';
 
 describe('app e2e', () => {
@@ -25,7 +24,7 @@ describe('app e2e', () => {
 
   describe('Sign in', () => {
     const dto: SigninDto = {
-      email: 'signin-test@gmail.com',
+      email: 'patient@gmail.com',
       password: 'password'
     };
 
@@ -36,7 +35,8 @@ describe('app e2e', () => {
           .post('/auth/signup/user')
           .withBody({
             ...TestSignupDto,
-            email: 'signin-test@gmail.com',
+            email: 'patient@gmail.com',
+            publicKey: '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsvHbIl+m2h3SY0UKdhj9\nCPU5nLdTwtkfjQhvzP993oGF9OqXtIqwjEr7SdkReR/47HpPqRQgJJsb4fdydRCd\nBhkyP2T4h7iDALddjoszaJZcta+XV1RZUhgiOxEHyuPhYO2WIF2XpDKEvxY8+vhC\nRutQ31sR7Z5eL9PJwaQ3hNVhHH1UkWWhcHW+7do0v6UzP1IxMgWJ5HPlA389Hgwo\n4pzpabuO6dPEwGufqDkN98jQWBxAazB3AI9lbwxMYDrXG04nT0PvjDsiO76Msjpa\nJgC0eLJkFJsaZWw55kbBcX7mTQjNB5BtNUSF5XvxhVfQj6TiSqOd3LHGQmUZpA8i\nowIDAQAB\n-----END PUBLIC KEY-----',
             password: 'password'
           })
           .expectStatus(201);

@@ -1,13 +1,14 @@
 import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Note, Prisma, User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
+import { ReminderFrequency } from 'types/types';
 import { formatUser } from 'src/auth/utils/format-user';
-import { FormattedUserType } from 'src/auth/types';
 import { SubmitNoteDto } from './dto';
 import { GeminiService } from 'src/gemini/gemini.service';
 import { formatNote } from 'src/utils/format-note';
 import { ActionableSteps, FormattedNoteResponse, PlanBaseType, PlanItem, PlanType } from 'types/types';
 import * as crypto from 'crypto';
+import { FormattedUserType } from 'types';
 
 @Injectable()
 export class DoctorService {
@@ -61,6 +62,10 @@ export class DoctorService {
   async createReminders(plans: PlanItem[], noteId: string, patientId: string, tx: Prisma.TransactionClient): Promise<void> {
     console.log('Plan Reminder: ', plans);
     const reminders = plans.map(plan => {
+      if (!Object.values(ReminderFrequency).includes(plan.frequency)) {
+        plan.frequency = ReminderFrequency.ONCE_DAILY as ReminderFrequency;
+      }
+
       let planDuration = plan.duration;
       if (plan.frequency === 'TWICE_DAILY') {
         planDuration = planDuration * 2;
