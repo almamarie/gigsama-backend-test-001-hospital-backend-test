@@ -30,38 +30,49 @@ describe('app e2e', () => {
       it('Should throw if email empty', () => {
         const dataDto = { ...dto };
         delete dataDto.email;
-        return pactum.spec().post('/auth/signup/user').withBody(dataDto).expectStatus(400);
+        return pactum.spec().post('/auth/signup/patient').withBody(dataDto).expectStatus(400);
       });
       it('Should throw if password empty', () => {
         const dataDto = { ...dto };
         delete dataDto.password;
-        return pactum.spec().post('/auth/signup/user').withBody(dataDto).expectStatus(400);
+        return pactum.spec().post('/auth/signup/patient').withBody(dataDto).expectStatus(400);
       });
 
       it('Should throw if first name empty', () => {
         const dataDto = { ...dto };
         delete dataDto.firstName;
-        return pactum.spec().post('/auth/signup/user').withBody(dataDto).expectStatus(400);
+        return pactum.spec().post('/auth/signup/patient').withBody(dataDto).expectStatus(400);
       });
 
       it('Should throw if last name empty', () => {
         const dataDto = { ...dto };
         delete dataDto.lastName;
-        return pactum.spec().post('/auth/signup/user').withBody(dataDto).expectStatus(400);
+        return pactum.spec().post('/auth/signup/patient').withBody(dataDto).expectStatus(400);
       });
 
       it('Should throw if no body provided', () => {
-        return pactum.spec().post('/auth/signup/user').expectStatus(400);
+        return pactum.spec().post('/auth/signup/patient').expectStatus(400);
       });
     });
-    describe('Sign up', () => {
+    describe('Sign up doctor', () => {
       const newDto = { ...dto, email: 'doctor@gmail.com' };
       it('Should signup', () => {
-        return pactum.spec().post('/auth/signup/user').withBody(newDto).expectStatus(201);
+        return pactum.spec().post('/auth/signup/doctor').withBody(newDto).expectStatus(201);
       }, 30000);
 
       it('Should throw error if duplicate user', () => {
-        return pactum.spec().post('/auth/signup/user').withBody(newDto).expectStatus(403);
+        return pactum.spec().post('/auth/signup/doctor').withBody(newDto).expectStatus(403);
+      });
+    });
+
+    describe('Sign up patient', () => {
+      const newDto = { ...dto, email: 'patient@gmail.com' };
+      it('Should signup', () => {
+        return pactum.spec().post('/auth/signup/patient').withBody(newDto).expectStatus(201);
+      }, 30000);
+
+      it('Should throw error if duplicate user', () => {
+        return pactum.spec().post('/auth/signup/patient').withBody(newDto).expectStatus(403);
       });
     });
   });

@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { Reminder, ReminderFrequency } from '@prisma/client';
-import { EmailService } from 'src/email/email.service';
-import { SendEmailType } from 'src/email/types/types';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { ReminderFrequency } from '@prisma/client';
+import { EmailService } from '../email/email.service';
+import { SendEmailType } from '../email/types/types';
+import { PrismaService } from '../prisma/prisma.service';
 import * as crypto from 'crypto';
 interface IReminder {
   patientEmail: string;

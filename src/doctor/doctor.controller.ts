@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
@@ -6,7 +6,7 @@ import { RolesGuard } from '../auth/guard/roles.guard';
 import { formatUser } from '../auth/utils/format-user';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { DoctorService } from './doctor.service';
-import { GeneralResponseEntity } from 'src/utils/entity';
+import { GeneralResponseEntity } from '../utils/entity';
 import { SubmitNoteDto } from './dto';
 import { FormattedNoteResponse } from 'types/types';
 import { FormattedUserType } from 'types';

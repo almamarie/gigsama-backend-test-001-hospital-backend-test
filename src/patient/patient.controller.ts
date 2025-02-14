@@ -7,7 +7,7 @@ import { formatUser } from '../auth/utils/format-user';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { PatientService } from './patient.service';
 import { AssignDto } from './dto/assign.dto';
-import { GeneralResponseEntity } from 'src/utils/entity';
+import { GeneralResponseEntity } from '../utils/entity';
 import { PatientDoctorEntity } from 'src/entities';
 import { GetActionDto } from './dto/get-actions.dto';
 import { FormattedUserType } from 'types';

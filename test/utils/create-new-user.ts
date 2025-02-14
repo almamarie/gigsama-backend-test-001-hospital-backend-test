@@ -6,7 +6,6 @@ export type CreateTestUserType = {
     email: string;
     firstName: string;
     lastName: string;
-    otherNames: string;
   };
   password: string;
   prisma: PrismaService;
@@ -19,9 +18,9 @@ export const createTestUser = async (data: CreateTestUserType) => {
     await prisma.user.create({
       data: {
         ...dto,
-        accountIsActivated: true,
-        role: 'USER',
-        passwordHash: await argon.hash(password)
+        role: 'PATIENT',
+        passwordHash: await argon.hash(password),
+        publicKey: 'your-public-key-here' // Replace with actual public key value
       }
     });
   } catch (error) {

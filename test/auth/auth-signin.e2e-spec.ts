@@ -32,7 +32,7 @@ describe('app e2e', () => {
       it('Should signup student', () => {
         return pactum
           .spec()
-          .post('/auth/signup/user')
+          .post('/auth/signup/patient')
           .withBody({
             ...TestSignupDto,
             email: 'patient@gmail.com',

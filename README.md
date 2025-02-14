@@ -192,6 +192,11 @@ The Hospital Backend System is a secure and intelligent platform that facilitate
   }
   ```
 
+## Tests
+
+run `npm run test:e2e` to run end-to-end test
+Tests are also available in the postman collection
+
 ## Deployment
 
 1. Clone the repository.

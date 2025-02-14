@@ -1,12 +1,11 @@
 import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User } from '@prisma/client';
-import { ReminderFrequency } from 'types/types';
-import { formatUser } from 'src/auth/utils/format-user';
+import { formatUser } from '../auth/utils/format-user';
 import { SubmitNoteDto } from './dto';
-import { GeminiService } from 'src/gemini/gemini.service';
-import { formatNote } from 'src/utils/format-note';
-import { ActionableSteps, FormattedNoteResponse, PlanBaseType, PlanItem, PlanType } from 'types/types';
+import { GeminiService } from '../gemini/gemini.service';
+import { formatNote } from '../utils/format-note';
+import { ActionableSteps, FormattedNoteResponse, PlanItem, ReminderFrequency } from '../../types/types';
 import * as crypto from 'crypto';
 import { FormattedUserType } from 'types';
 

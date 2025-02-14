@@ -7,7 +7,7 @@ model User {
   lastName  String
   email     String @unique
 
-  publicKey String
+  publicKey String @unique
 
   passwordHash         String
   passwordResetToken   String?

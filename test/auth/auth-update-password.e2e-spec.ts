@@ -2,8 +2,8 @@ import * as pactum from 'pactum';
 import { INestApplication } from '@nestjs/common';
 import { PrismaService } from '../../src/prisma/prisma.service';
 import { UpdatePasswordDto } from 'src/auth/dto';
-import { createTestApp } from '../../test/test-utils';
-import { TestSignupDto } from '../../test/utils';
+import { createTestApp } from '../test-utils';
+import { TestSignupDto } from '../utils';
 
 describe('app e2e', () => {
   let app: INestApplication;
@@ -31,7 +31,7 @@ describe('app e2e', () => {
     it('should create a new user', () => {
       return pactum
         .spec()
-        .post('/auth/signup/user')
+        .post('/auth/signup/doctor')
         .withBody({
           ...TestSignupDto,
           email: 'update-password@gmail.com'
