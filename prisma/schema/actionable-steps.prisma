@@ -1,8 +1,13 @@
-model Plan {
-  planId    String   @id @default(cuid())
+model Actions {
+  actionId  String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  checkList String
+  plan      String
+
   patientDoctorId String         @unique
   PatientDoctor   PatientDoctor?
+
+  Reminders Reminders?
 }

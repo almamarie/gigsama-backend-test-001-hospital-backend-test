@@ -5,33 +5,39 @@ import { JwtGuard } from '../auth/guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { formatUser } from '../auth/utils/format-user';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
-import { UserEntity } from './entities';
+import { UserEntity } from '../user/entities';
 import { PatientService } from './patient.service';
 import { MessageEntity } from 'src/auth/entities';
 import { AssignDto } from './dto/assign.dto';
+import { GeneralResponseEntity } from 'src/utils/entity';
+import { PatientDoctorEntity } from 'src/entities';
 
 @Controller('patients')
 @UseGuards(JwtGuard, RolesGuard)
 export class PatientController {
   constructor(private patientService: PatientService) {}
   @Get('me')
-  @ApiCreatedResponse({
-    type: UserEntity,
-    isArray: false
-  })
-  @SetMetadata('permissions', ['get:own:user'])
-  getMe(@GetUser() user: User) {
-    return formatUser(user);
-  }
-
-  @Post('assign-doctor')
   @ApiOkResponse({
     type: MessageEntity,
     isArray: false
   })
+  @SetMetadata('permissions', ['get:own:user', 'pairer:user'])
+  getMe(@GetUser() user: User) {
+    return {
+      status: true,
+      message: 'User retrieved',
+      data: formatUser(user)
+    };
+  }
+
+  @Post('assign-doctor')
+  @ApiOkResponse({
+    type: GeneralResponseEntity<PatientDoctorEntity>,
+    isArray: false
+  })
   @SetMetadata('permissions', ['post:assign:doctor'])
   async assignDoctor(@GetUser('userId') userId: string, @Body() dto: AssignDto) {
-    await this.patientService.assignDoctor({ ...dto, patientId: userId });
-    return { status: true, message: 'Doctor assigned to patient successfully.', data: {} };
+    const relation = await this.patientService.assignDoctor({ ...dto, patientId: userId });
+    return { status: true, message: 'Doctor assigned to patient successfully.', data: {relation} };
   }
 }

@@ -1,12 +1,7 @@
-model PatientDoctor {
+model Reminders {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  patientId      String
-  doctorId       String
-  encryptedNotes String?
-  checkList      String?
 
   actions Actions? @relation(fields: [actionId], references: [actionId])
 

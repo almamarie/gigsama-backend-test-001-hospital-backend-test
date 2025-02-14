@@ -5,9 +5,9 @@ model User {
 
   firstName String
   lastName  String
-  email String @unique
+  email     String @unique
 
-  publicKey  String
+  publicKey String
 
   passwordHash         String
   passwordResetToken   String?

@@ -42,7 +42,7 @@ export class AuthService {
         }
       });
 
-      await this.sendWelcomeEmail(dto.firstName, dto.email);
+      // await this.sendWelcomeEmail(dto.firstName, dto.email);
 
       this.logger.log('Done creating new user.');
 

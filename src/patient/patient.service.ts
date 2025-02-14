@@ -1,7 +1,6 @@
 import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { User } from '@prisma/client';
-import { AssignDto } from './dto/assign.dto';
+import { PatientDoctor, User } from '@prisma/client';
 
 @Injectable()
 export class PatientService {
@@ -12,7 +11,7 @@ export class PatientService {
     return await this.prismaService.user.findFirst({ where: { userId } });
   }
 
-  async assignDoctor(dto: { doctorId: string; patientId: string }): Promise<Boolean> {
+  async assignDoctor(dto: { doctorId: string; patientId: string }): Promise<PatientDoctor> {
     this.logger.log('Assigning doctor to user...');
     this.logger.log('Finding doctor...');
     const doctor = await this.prismaService.user.findFirst({ where: { userId: dto.doctorId } });
@@ -25,9 +24,8 @@ export class PatientService {
 
     this.logger.log('Creating relation.');
 
-    await this.prismaService.patientDoctor.create({ data: dto });
+    const relation = await this.prismaService.patientDoctor.create({ data: dto });
     this.logger.log('done');
-
-    return true;
+    return relation;
   }
 }
