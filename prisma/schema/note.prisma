@@ -2,7 +2,10 @@ model Note {
   id            String @id @default(uuid())
   patientId     String
   doctorId      String
-  encryptedNote String
+   encryptedNote String
+    encryptedAESKeyForPatient String
+      encryptedAESKeyForDoctor String
+      iv String
 
   checklist String
   plan      String

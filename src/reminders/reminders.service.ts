@@ -4,7 +4,7 @@ import { Reminder, ReminderFrequency } from '@prisma/client';
 import { EmailService } from 'src/email/email.service';
 import { SendEmailType } from 'src/email/types/types';
 import { PrismaService } from 'src/prisma/prisma.service';
-
+import * as crypto from 'crypto';
 interface IReminder {
   patientEmail: string;
   message: string;
@@ -20,6 +20,11 @@ export class ReminderService {
     private emailService: EmailService
   ) {
     this.logger.log('Setting up reminder cron');
+
+    // this.logger.log('Generating Public private keys');
+    // // Generate keys for patient and doctor
+    // const patientKeys = this.generateKeyPair();
+    // const doctorKeys = this.generateKeyPair();
   }
 
   @Cron('0 6,12,18,22 * * *')
@@ -82,5 +87,23 @@ export class ReminderService {
       } as SendEmailType;
     });
     parsedEmailData.forEach(data => this.emailService.sendMail(data));
+  }
+
+  async generateKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
+    const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+      modulusLength: 2048, // Strong encryption
+      publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem'
+      },
+      privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem'
+      }
+    });
+
+    console.log('Patient Public Key:\n', publicKey);
+
+    return { publicKey, privateKey };
   }
 }

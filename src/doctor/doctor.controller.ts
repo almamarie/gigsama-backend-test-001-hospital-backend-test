@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, SetMetadata, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
@@ -42,14 +42,14 @@ export class DoctorController {
     return { status: true, message: 'Patients retrieved successfully.', data: users };
   }
 
-  @Post('notes')
+  @Patch('notes')
   @ApiOkResponse({
     type: GeneralResponseEntity<FormattedNoteResponse>,
     isArray: true
   })
   @SetMetadata('permissions', ['post:patient:notes'])
-  async submitPatientNotes(@GetUser('userId') doctorId: string, @Body() dto: SubmitNoteDto) {
-    const note = await this.doctorService.submitNotes(dto, doctorId);
+  async submitPatientNotes(@GetUser() doctor: User, @Body() dto: SubmitNoteDto) {
+    const note = await this.doctorService.submitNotes(dto, doctor);
     return { status: true, message: 'Note submitted.', data: note };
   }
 }

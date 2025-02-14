@@ -20,7 +20,7 @@ import {
 import { User } from "@prisma/client";
 import { GetUser } from "./decorator";
 import { JwtGuard } from "./guard";
-import { ApiOkResponse } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AccessTokenEntity, MessageEntity } from "./entities";
 import { GeneralResponseType } from "./types";
 import { Roles } from 'types';
@@ -31,7 +31,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('signup/:role')
-  @ApiOkResponse({
+  @ApiCreatedResponse({
     type: AccessTokenEntity,
     isArray: false
   })
