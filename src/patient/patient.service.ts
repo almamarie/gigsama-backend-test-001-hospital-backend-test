@@ -36,8 +36,8 @@ export class PatientService {
     if (!note) throw new NotFoundException('Not found');
 
     return {
-      checklist: note.checklist,
-      plan: note.plan,
+      checklist: JSON.parse(note.checklist),
+      plan: JSON.parse(note.plan),
       reminders: note.reminders
     };
   }

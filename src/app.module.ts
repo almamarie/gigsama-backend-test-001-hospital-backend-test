@@ -6,10 +6,13 @@ import { LoggerMiddleware } from "./utils/logger.middleware";
 import { EmailModule } from "./email/email.module";
 import { PatientModule } from './patient/patient.module';
 import { DoctorModule } from './doctor/doctor.module';
+import { GeminiModule } from './gemini/gemini.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ReminderService } from './reminders/reminders.service';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), EmailModule, AuthModule, PatientModule, DoctorModule, PrismaModule],
-  providers: []
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ScheduleModule.forRoot(), EmailModule, AuthModule, PatientModule, DoctorModule, GeminiModule, PrismaModule],
+  providers: [ReminderService]
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

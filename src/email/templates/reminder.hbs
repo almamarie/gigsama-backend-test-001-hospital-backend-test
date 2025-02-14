@@ -17,26 +17,22 @@
   <body>
     <div class="container">
       <div class="header">
-        Reminder:
-        {{reminderTitle}}
+        {{title}}
       </div>
       <div class="content">
-        <p>Dear {{name}},</p>
-        <p>This is a friendly reminder for your scheduled task:</p>
-        <p><strong>Reminder:</strong> {{reminderTitle}}</p>
-        <p><strong>Details:</strong> {{reminderDetails}}</p>
-        <p><strong>Scheduled Date & Time:</strong> {{scheduledTime}}</p>
+        <p>Dear {{firstName}},</p>
+        {{message}}
+        
 
         <p>Please ensure you complete this task on time. If you have already
-          completed it, kindly mark it as done.</p>
+          completed it, kindly log into the application to calcel it.</p>
 
-        <a href="{{checkInLink}}" class="button">Mark as Completed</a>
 
         <p>If you have any questions, please contact your doctor.</p>
       </div>
       <div class="footer">
         &copy;
-        {{year}}
+       2025
         Hospital System | All rights reserved.
       </div>
     </div>

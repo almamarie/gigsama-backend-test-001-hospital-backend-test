@@ -7,7 +7,7 @@ model Note {
   checklist String
   plan      String
 
-  patientDoctorId String
+  patientDoctorId String        @unique
   patientDoctor   PatientDoctor @relation(fields: [patientDoctorId], references: [id])
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt

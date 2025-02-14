@@ -14,7 +14,8 @@ model User {
   passwordResetExpires DateTime?
   passwordChangedAt    DateTime  @default(now())
 
-  role String
+  role      String
+  reminders Reminder[]
 
   @@map("users")
 }

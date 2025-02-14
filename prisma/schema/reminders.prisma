@@ -1,13 +1,30 @@
+enum ReminderFrequency {
+  ONCE_DAILY
+  TWICE_DAILY
+  THREE_TIMES_DAILY
+  FOUR_TIMES_DAILY
+}
+
 model Reminder {
   reminderId String   @id @default(cuid())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  task      String
-  frequency String
-  duration  Int
-  completed Boolean @default(false)
+  message     String
+  frequency   ReminderFrequency
+  duration    Int
+  isCompleted Boolean           @default(false)
+  reminderIsSent Boolean           @default(false)
+  
 
   noteId String
   note   Note   @relation(fields: [noteId], references: [id])
+
+  patientId String
+  patient   User   @relation(fields: [patientId], references: [userId], onDelete: Cascade)
 }
+
+// Cron job.
+// cron runs at 6am, 12pm, 6pm, 10pm
+//      - Daily is 6am
+//      - 
